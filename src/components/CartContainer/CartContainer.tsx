@@ -38,7 +38,7 @@ const CartContainer = () => {
 
         <button
           type="button"
-          aria-label="clear cart"
+          aria-label="Clear all items from cart"
           className="cart__clear-cart"
           onClick={() => dispatch({ type: "CLEAR_CART" })}
         >

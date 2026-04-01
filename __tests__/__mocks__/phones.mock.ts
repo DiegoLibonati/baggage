@@ -14,4 +14,4 @@ export const mockPhones = [
     amount: 3,
   },
 ];
-export const mockPhone = mockPhones[0];
+export const mockPhone = mockPhones[0]!;

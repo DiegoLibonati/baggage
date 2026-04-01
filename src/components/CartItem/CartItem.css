@@ -4,7 +4,7 @@
   justify-content: space-between;
   flex-flow: row wrap;
   width: 100%;
-  height: 10rem;
+  height: 6.25rem;
 }
 
 .item__img-wrapper {
@@ -15,8 +15,8 @@
 }
 
 .item__img {
-  width: 7rem;
-  height: 7rem;
+  width: 4.375rem;
+  height: 4.375rem;
   object-fit: cover;
 }
 
@@ -27,25 +27,25 @@
   flex-flow: column wrap;
   height: 100%;
   flex: 2 1 auto;
-  width: 20rem;
+  width: 12.5rem;
 }
 
 .item__title {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.3125rem;
 }
 
 .item__price {
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3125rem;
 }
 
 .item__remove {
   background: none;
   border: none;
   color: var(--color-primary);
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
@@ -59,7 +59,7 @@
 
 .item__increase-icon,
 .item__decrease-icon {
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 900;
   color: var(--color-primary);
 }
@@ -73,25 +73,25 @@
 }
 
 .item__amount-text {
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 900;
 }
 
 @media only screen and (min-width: 280px) and (max-width: 360px) {
   .item__img {
-    width: 5rem;
-    height: 5rem;
+    width: 3.125rem;
+    height: 3.125rem;
   }
 
   .item__information {
-    width: 15rem;
+    width: 9.375rem;
   }
 
   .item__title {
-    font-size: 1.5rem;
+    font-size: 0.9375rem;
   }
 
   .item__price {
-    font-size: 1rem;
+    font-size: 0.625rem;
   }
 }

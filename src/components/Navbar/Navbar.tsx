@@ -12,9 +12,17 @@ const Navbar = () => {
       <nav className="navbar">
         <h3 className="navbar__title">UseReducer</h3>
 
-        <div className="navbar__shop">
-          <BsFillCartFill id="cart" className="navbar__shop-icon"></BsFillCartFill>
-          <div className="navbar__shop-amount">
+        <div
+          className="navbar__shop"
+          aria-label={`Shopping cart, ${state.amount} item${state.amount !== 1 ? "s" : ""}`}
+          role="status"
+        >
+          <BsFillCartFill
+            id="cart"
+            className="navbar__shop-icon"
+            aria-hidden="true"
+          ></BsFillCartFill>
+          <div className="navbar__shop-amount" aria-hidden="true">
             <p className="navbar__shop-amount-text">{state.amount}</p>
           </div>
         </div>

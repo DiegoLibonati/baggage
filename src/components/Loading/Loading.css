@@ -8,10 +8,10 @@
 }
 
 .loading__header {
-  padding: 1rem;
+  padding: 0.625rem;
 }
 
 .loading__title {
-  font-size: 5rem;
+  font-size: 3.125rem;
   text-align: center;
 }
