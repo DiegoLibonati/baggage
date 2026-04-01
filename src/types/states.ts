@@ -1,4 +1,4 @@
-import { Phone } from "@src/entities/app";
+import { Phone } from "@/types/app";
 
 export type CartState = {
   loading: boolean;

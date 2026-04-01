@@ -1,12 +1,12 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-import { CartItemProps } from "@src/entities/props";
+import { CartItemProps } from "@/types/props";
 
-import { useCartContext } from "@src/hooks/useCartContext";
+import { useCartContext } from "@/hooks/useCartContext";
 
-import "@src/components/CartItem/CartItem.css";
+import "@/components/CartItem/CartItem.css";
 
-export const CartItem = ({ id }: CartItemProps): JSX.Element => {
+const CartItem = ({ id }: CartItemProps) => {
   const { state, dispatch } = useCartContext();
 
   const item = state.cart.find((cartItem) => cartItem.id === id);
@@ -35,30 +35,22 @@ export const CartItem = ({ id }: CartItemProps): JSX.Element => {
           type="button"
           aria-label="increase phone"
           className="item__increase"
-          onClick={() =>
-            dispatch({ type: "INCREASE_ITEM", payload: { id: id } })
-          }
+          onClick={() => dispatch({ type: "INCREASE_ITEM", payload: { id: id } })}
         >
-          <BsChevronUp
-            id="cart-up"
-            className="item__increase-icon"
-          ></BsChevronUp>
+          <BsChevronUp id="cart-up" className="item__increase-icon"></BsChevronUp>
         </button>
         <p className="item__amount-text">{item?.amount}</p>
         <button
           type="button"
           aria-label="decrease phone"
           className="item__decrease"
-          onClick={() =>
-            dispatch({ type: "DECREASE_ITEM", payload: { id: id } })
-          }
+          onClick={() => dispatch({ type: "DECREASE_ITEM", payload: { id: id } })}
         >
-          <BsChevronDown
-            id="cart-down"
-            className="item__decrease-icon"
-          ></BsChevronDown>
+          <BsChevronDown id="cart-down" className="item__decrease-icon"></BsChevronDown>
         </button>
       </div>
     </div>
   );
 };
+
+export default CartItem;

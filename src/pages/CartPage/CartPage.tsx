@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 
-import { CartContainer } from "@src/components/CartContainer/CartContainer";
-import { Loading } from "@src/components/Loading/Loading";
+import CartContainer from "@/components/CartContainer/CartContainer";
+import Loading from "@/components/Loading/Loading";
 
-import { useCartContext } from "@src/hooks/useCartContext";
+import { useCartContext } from "@/hooks/useCartContext";
 
-import { getPhones } from "@src/api/get/getPhones";
+import { phonesService } from "@/services/phonesService";
 
-import "@src/pages/CartPage/CartPage.css";
+import "@/pages/CartPage/CartPage.css";
 
-export const CartPage = () => {
+const CartPage = () => {
   const { state, dispatch } = useCartContext();
 
   const fetchCart = async (): Promise<void> => {
     dispatch({ type: "LOADING" });
 
-    const phones = await getPhones();
+    const phones = await phonesService.getAll();
 
     dispatch({ type: "DISPLAY_ITEMS", payload: { cart: phones } });
   };
@@ -36,3 +36,5 @@ export const CartPage = () => {
     </main>
   );
 };
+
+export default CartPage;

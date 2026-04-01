@@ -1,16 +1,9 @@
-import { CartReducer as CartReducerT } from "@src/entities/contexts";
-import { CartState } from "@src/entities/states";
+import { CartReducer as CartReducerT } from "@/types/reducers";
+import { CartState } from "@/types/states";
 
-import { getTotalAndAmount } from "@src/helpers/getTotalAndAmount";
+import { getTotalAndAmount } from "@/helpers/getTotalAndAmount";
 
-export const initialState: CartState = {
-  loading: false,
-  cart: [],
-  total: 0,
-  amount: 0,
-};
-
-export const CartReducer = (state: CartState, action: CartReducerT) => {
+export const CartReducer = (state: CartState, action: CartReducerT): CartState => {
   if (action.type === "CLEAR_CART") {
     return { ...state, cart: [] };
   }

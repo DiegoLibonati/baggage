@@ -1,4 +1,4 @@
-export const phones = [
+export const mockPhones = [
   {
     id: 1,
     title: "Samsung Galaxy S8",
@@ -14,4 +14,4 @@ export const phones = [
     amount: 3,
   },
 ];
-export const phone = phones[0];
+export const mockPhone = mockPhones[0];

@@ -1,6 +1,6 @@
-import "@src/components/Loading/Loading.css";
+import "@/components/Loading/Loading.css";
 
-export const Loading = () => {
+const Loading = () => {
   return (
     <div className="loading">
       <div className="loading__header">
@@ -9,3 +9,5 @@ export const Loading = () => {
     </div>
   );
 };
+
+export default Loading;

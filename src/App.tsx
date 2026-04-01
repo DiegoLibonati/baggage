@@ -1,16 +1,18 @@
-import { Fragment } from "react";
+import Navbar from "@/components/Navbar/Navbar";
 
-import { Navbar } from "@src/components/Navbar/Navbar";
+import CartPage from "@/pages/CartPage/CartPage";
 
-import { CartPage } from "@src/pages/CartPage/CartPage";
+import { CartProvider } from "@/contexts/CartContext/CartProvider";
 
-import "@src/App.css";
+import "@/App.css";
 
-export function App(): JSX.Element {
+function App() {
   return (
-    <Fragment>
+    <CartProvider>
       <Navbar></Navbar>
       <CartPage></CartPage>
-    </Fragment>
+    </CartProvider>
   );
 }
+
+export default App;

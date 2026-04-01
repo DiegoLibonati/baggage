@@ -44,7 +44,7 @@
 .item__remove {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -61,7 +61,7 @@
 .item__decrease-icon {
   font-size: 2rem;
   font-weight: 900;
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 .item__increase,

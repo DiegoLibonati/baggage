@@ -1,10 +1,10 @@
-import { CartItem } from "@src/components/CartItem/CartItem";
+import CartItem from "@/components/CartItem/CartItem";
 
-import { useCartContext } from "@src/hooks/useCartContext";
+import { useCartContext } from "@/hooks/useCartContext";
 
-import "@src/components/CartContainer/CartContainer.css";
+import "@/components/CartContainer/CartContainer.css";
 
-export const CartContainer = (): JSX.Element => {
+const CartContainer = () => {
   const { state, dispatch } = useCartContext();
 
   if (state.cart.length === 0) {
@@ -48,3 +48,5 @@ export const CartContainer = (): JSX.Element => {
     </section>
   );
 };
+
+export default CartContainer;

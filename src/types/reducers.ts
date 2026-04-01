@@ -1,10 +1,4 @@
-import { Phone } from "@src/entities/app";
-import { CartState } from "@src/entities/states";
-
-export type CartContext = {
-  state: CartState;
-  dispatch: React.Dispatch<CartReducer>;
-};
+import { Phone } from "@/types/app";
 
 export type CartReducer =
   | { type: "CLEAR_CART" }

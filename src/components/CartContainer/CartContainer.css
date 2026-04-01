@@ -38,7 +38,7 @@
   flex-flow: column wrap;
   width: 100%;
   height: 15rem;
-  border-top: 0.2rem solid var(--black-color);
+  border-top: 0.2rem solid var(--color-black);
 }
 
 .cart__price {
@@ -62,10 +62,10 @@
 .cart__clear-cart {
   margin-bottom: 1rem;
   border-radius: 1rem;
-  border: 0.2rem solid var(--red-color);
+  border: 0.2rem solid var(--color-red);
   background: none;
   font-size: 2rem;
-  color: var(--red-color);
+  color: var(--color-red);
   padding: 0.5rem;
 }
 
