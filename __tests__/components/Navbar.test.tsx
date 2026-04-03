@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { useEffect } from "react";
 
+import type { Phone } from "@/types/app";
+
 import Navbar from "@/components/Navbar/Navbar";
 
 import { CartProvider } from "@/contexts/CartContext/CartProvider";
 
 import { useCartContext } from "@/hooks/useCartContext";
-
-import type { Phone } from "@/types/app";
 
 import { mockPhone, mockPhones } from "@tests/__mocks__/phones.mock";
 

@@ -3,6 +3,10 @@ import { phonesService } from "@/services/phonesService";
 import { mockPhones } from "@tests/__mocks__/phones.mock";
 
 describe("phonesService", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should call fetch with the correct URL and method", async () => {
     (globalThis.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,

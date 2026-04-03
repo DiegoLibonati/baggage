@@ -12,7 +12,7 @@ type RenderPage = {
   container: HTMLElement;
 };
 
-const mockedPhonesService = phonesService as jest.Mocked<typeof phonesService>;
+const mockPhonesService = phonesService as jest.Mocked<typeof phonesService>;
 
 jest.mock("@/services/phonesService");
 
@@ -27,8 +27,12 @@ const renderPage = (): RenderPage => {
 };
 
 describe("CartPage", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should show the loading state while fetching phones", () => {
-    mockedPhonesService.getAll.mockReturnValueOnce(new Promise(() => undefined));
+    mockPhonesService.getAll.mockReturnValueOnce(new Promise(() => undefined));
 
     renderPage();
 
@@ -36,7 +40,7 @@ describe("CartPage", () => {
   });
 
   it("should render the main element after the fetch completes", async () => {
-    mockedPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
 
     const { container } = renderPage();
 
@@ -45,7 +49,7 @@ describe("CartPage", () => {
   });
 
   it("should hide the loading state after the fetch completes", async () => {
-    mockedPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
@@ -54,7 +58,7 @@ describe("CartPage", () => {
   });
 
   it("should display one image per phone after a successful fetch", async () => {
-    mockedPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
@@ -63,7 +67,7 @@ describe("CartPage", () => {
   });
 
   it("should show the empty cart state when the service returns no phones", async () => {
-    mockedPhonesService.getAll.mockResolvedValueOnce([]);
+    mockPhonesService.getAll.mockResolvedValueOnce([]);
 
     renderPage();
 
@@ -71,11 +75,11 @@ describe("CartPage", () => {
   });
 
   it("should call phonesService.getAll exactly once on mount", async () => {
-    mockedPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
     await screen.findByRole("main");
-    expect(mockedPhonesService.getAll).toHaveBeenCalledTimes(1);
+    expect(mockPhonesService.getAll).toHaveBeenCalledTimes(1);
   });
 });
