@@ -12,6 +12,10 @@ import type { Phone } from "@/types/app";
 
 import { mockPhone } from "@tests/__mocks__/phones.mock";
 
+type RenderComponent = {
+  container: HTMLElement;
+};
+
 const CartItemWrapper = ({ phones, id }: { phones: Phone[]; id: number }) => {
   const { dispatch } = useCartContext();
 
@@ -20,10 +24,6 @@ const CartItemWrapper = ({ phones, id }: { phones: Phone[]; id: number }) => {
   }, []);
 
   return <CartItem id={id} />;
-};
-
-type RenderComponent = {
-  container: HTMLElement;
 };
 
 const renderComponent = (overrides?: { phones?: Phone[]; id?: number }): RenderComponent => {

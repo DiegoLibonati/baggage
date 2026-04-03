@@ -11,6 +11,10 @@ import type { Phone } from "@/types/app";
 
 import { mockPhone, mockPhones } from "@tests/__mocks__/phones.mock";
 
+type RenderComponent = {
+  container: HTMLElement;
+};
+
 const NavbarWithCart = ({ phones }: { phones: Phone[] }) => {
   const { dispatch } = useCartContext();
 
@@ -20,10 +24,6 @@ const NavbarWithCart = ({ phones }: { phones: Phone[] }) => {
   }, []);
 
   return <Navbar />;
-};
-
-type RenderComponent = {
-  container: HTMLElement;
 };
 
 const renderComponent = (phones: Phone[] = []): RenderComponent => {

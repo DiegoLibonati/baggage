@@ -8,13 +8,13 @@ import { phonesService } from "@/services/phonesService";
 
 import { mockPhones } from "@tests/__mocks__/phones.mock";
 
-jest.mock("@/services/phonesService");
-
-const mockedPhonesService = phonesService as jest.Mocked<typeof phonesService>;
-
 type RenderPage = {
   container: HTMLElement;
 };
+
+jest.mock("@/services/phonesService");
+
+const mockedPhonesService = phonesService as jest.Mocked<typeof phonesService>;
 
 const renderPage = (): RenderPage => {
   const { container } = render(
