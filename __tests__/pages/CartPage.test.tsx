@@ -12,9 +12,9 @@ type RenderPage = {
   container: HTMLElement;
 };
 
-jest.mock("@/services/phonesService");
-
 const mockedPhonesService = phonesService as jest.Mocked<typeof phonesService>;
+
+jest.mock("@/services/phonesService");
 
 const renderPage = (): RenderPage => {
   const { container } = render(
