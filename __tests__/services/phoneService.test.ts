@@ -1,8 +1,8 @@
-import { phonesService } from "@/services/phonesService";
+import phoneService from "@/services/phoneService";
 
 import { mockPhones } from "@tests/__mocks__/phones.mock";
 
-describe("phonesService", () => {
+describe("phoneService", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -13,7 +13,7 @@ describe("phonesService", () => {
       json: async () => [],
     });
 
-    await phonesService.getAll();
+    await phoneService.getAll();
 
     expect(globalThis.fetch).toHaveBeenCalledWith("/react-useReducer-cart-project", {
       method: "GET",
@@ -26,7 +26,7 @@ describe("phonesService", () => {
       json: async () => mockPhones,
     });
 
-    const result = await phonesService.getAll();
+    const result = await phoneService.getAll();
 
     expect(result).toEqual(mockPhones);
   });
@@ -37,6 +37,6 @@ describe("phonesService", () => {
       status: 500,
     });
 
-    await expect(phonesService.getAll()).rejects.toThrow("HTTP error! status: 500");
+    await expect(phoneService.getAll()).rejects.toThrow("HTTP error! status: 500");
   });
 });

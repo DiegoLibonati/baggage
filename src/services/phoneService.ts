@@ -1,6 +1,6 @@
 import type { Phone } from "@/types/app";
 
-export const phonesService = {
+const phoneService = {
   getAll: async (): Promise<Phone[]> => {
     const response = await fetch("/react-useReducer-cart-project", {
       method: "GET",
@@ -13,3 +13,5 @@ export const phonesService = {
     return phones;
   },
 };
+
+export default phoneService;

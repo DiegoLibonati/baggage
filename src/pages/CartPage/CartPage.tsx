@@ -5,7 +5,7 @@ import Loading from "@/components/Loading/Loading";
 
 import { useCartContext } from "@/hooks/useCartContext";
 
-import { phonesService } from "@/services/phonesService";
+import phoneService from "@/services/phoneService";
 
 import "@/pages/CartPage/CartPage.css";
 
@@ -15,7 +15,7 @@ const CartPage = () => {
   const fetchCart = async (): Promise<void> => {
     dispatch({ type: "LOADING" });
 
-    const phones = await phonesService.getAll();
+    const phones = await phoneService.getAll();
 
     dispatch({ type: "DISPLAY_ITEMS", payload: { cart: phones } });
   };

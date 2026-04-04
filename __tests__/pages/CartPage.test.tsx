@@ -4,7 +4,7 @@ import CartPage from "@/pages/CartPage/CartPage";
 
 import { CartProvider } from "@/contexts/CartContext/CartProvider";
 
-import { phonesService } from "@/services/phonesService";
+import phoneService from "@/services/phoneService";
 
 import { mockPhones } from "@tests/__mocks__/phones.mock";
 
@@ -12,9 +12,9 @@ type RenderPage = {
   container: HTMLElement;
 };
 
-const mockPhonesService = phonesService as jest.Mocked<typeof phonesService>;
+const mockPhoneService = phoneService as jest.Mocked<typeof phoneService>;
 
-jest.mock("@/services/phonesService");
+jest.mock("@/services/phoneService");
 
 const renderPage = (): RenderPage => {
   const { container } = render(
@@ -32,7 +32,7 @@ describe("CartPage", () => {
   });
 
   it("should show the loading state while fetching phones", () => {
-    mockPhonesService.getAll.mockReturnValueOnce(new Promise(() => undefined));
+    mockPhoneService.getAll.mockReturnValueOnce(new Promise(() => undefined));
 
     renderPage();
 
@@ -40,7 +40,7 @@ describe("CartPage", () => {
   });
 
   it("should render the main element after the fetch completes", async () => {
-    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhoneService.getAll.mockResolvedValueOnce(mockPhones);
 
     const { container } = renderPage();
 
@@ -49,7 +49,7 @@ describe("CartPage", () => {
   });
 
   it("should hide the loading state after the fetch completes", async () => {
-    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhoneService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
@@ -58,7 +58,7 @@ describe("CartPage", () => {
   });
 
   it("should display one image per phone after a successful fetch", async () => {
-    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+    mockPhoneService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
@@ -67,19 +67,19 @@ describe("CartPage", () => {
   });
 
   it("should show the empty cart state when the service returns no phones", async () => {
-    mockPhonesService.getAll.mockResolvedValueOnce([]);
+    mockPhoneService.getAll.mockResolvedValueOnce([]);
 
     renderPage();
 
     expect(await screen.findByText("Is currently empty")).toBeInTheDocument();
   });
 
-  it("should call phonesService.getAll exactly once on mount", async () => {
-    mockPhonesService.getAll.mockResolvedValueOnce(mockPhones);
+  it("should call phoneService.getAll exactly once on mount", async () => {
+    mockPhoneService.getAll.mockResolvedValueOnce(mockPhones);
 
     renderPage();
 
     await screen.findByRole("main");
-    expect(mockPhonesService.getAll).toHaveBeenCalledTimes(1);
+    expect(mockPhoneService.getAll).toHaveBeenCalledTimes(1);
   });
 });
