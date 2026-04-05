@@ -1,7 +1,7 @@
-import { CartState } from "@/types/states";
-import { CartReducer } from "@/types/reducers";
+import type { CartState } from "@/types/states";
+import type { CartReducer } from "@/types/reducers";
 
-export type CartContext = {
+export interface CartContext {
   state: CartState;
   dispatch: React.Dispatch<CartReducer>;
-};
+}

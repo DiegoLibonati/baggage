@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect } from "react";
 
+import type { JSX } from "react";
 import type { Phone } from "@/types/app";
 
 import CartItem from "@/components/CartItem/CartItem";
@@ -12,11 +13,11 @@ import { useCartContext } from "@/hooks/useCartContext";
 
 import { mockPhone } from "@tests/__mocks__/phones.mock";
 
-type RenderComponent = {
+interface RenderComponent {
   container: HTMLElement;
-};
+}
 
-const CartItemWrapper = ({ phones, id }: { phones: Phone[]; id: number }) => {
+const CartItemWrapper = ({ phones, id }: { phones: Phone[]; id: number }): JSX.Element => {
   const { dispatch } = useCartContext();
 
   useEffect(() => {

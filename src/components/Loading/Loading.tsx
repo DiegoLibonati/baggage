@@ -1,6 +1,8 @@
+import type { JSX } from "react";
+
 import "@/components/Loading/Loading.css";
 
-const Loading = () => {
+const Loading = (): JSX.Element => {
   return (
     <div className="loading">
       <div className="loading__header">

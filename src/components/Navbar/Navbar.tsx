@@ -1,10 +1,12 @@
 import { BsFillCartFill } from "react-icons/bs";
 
+import type { JSX } from "react";
+
 import { useCartContext } from "@/hooks/useCartContext";
 
 import "@/components/Navbar/Navbar.css";
 
-const Navbar = () => {
+const Navbar = (): JSX.Element => {
   const { state } = useCartContext();
 
   return (

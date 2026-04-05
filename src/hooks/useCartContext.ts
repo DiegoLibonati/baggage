@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { UseCartContext } from "@/types/hooks";
+import type { UseCartContext } from "@/types/hooks";
 
 import { CartContext } from "@/contexts/CartContext/CartContext";
 

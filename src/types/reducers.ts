@@ -1,4 +1,4 @@
-import { Phone } from "@/types/app";
+import type { Phone } from "@/types/app";
 
 export type CartReducer =
   | { type: "CLEAR_CART" }

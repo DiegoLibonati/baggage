@@ -1,12 +1,13 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-import { CartItemProps } from "@/types/props";
+import type { JSX } from "react";
+import type { CartItemProps } from "@/types/props";
 
 import { useCartContext } from "@/hooks/useCartContext";
 
 import "@/components/CartItem/CartItem.css";
 
-const CartItem = ({ id }: CartItemProps) => {
+const CartItem = ({ id }: CartItemProps): JSX.Element => {
   const { state, dispatch } = useCartContext();
 
   const item = state.cart.find((cartItem) => cartItem.id === id);
@@ -24,7 +25,9 @@ const CartItem = ({ id }: CartItemProps) => {
           type="button"
           className="item__remove"
           aria-label={`Remove ${item?.title} from cart`}
-          onClick={() => dispatch({ type: "CLEAR_ITEM", payload: { id: id } })}
+          onClick={() => {
+            dispatch({ type: "CLEAR_ITEM", payload: { id: id } });
+          }}
         >
           Remove
         </button>
@@ -35,7 +38,9 @@ const CartItem = ({ id }: CartItemProps) => {
           type="button"
           aria-label={`Increase quantity of ${item?.title}`}
           className="item__increase"
-          onClick={() => dispatch({ type: "INCREASE_ITEM", payload: { id: id } })}
+          onClick={() => {
+            dispatch({ type: "INCREASE_ITEM", payload: { id: id } });
+          }}
         >
           <BsChevronUp
             id="cart-up"
@@ -50,7 +55,9 @@ const CartItem = ({ id }: CartItemProps) => {
           type="button"
           aria-label={`Decrease quantity of ${item?.title}`}
           className="item__decrease"
-          onClick={() => dispatch({ type: "DECREASE_ITEM", payload: { id: id } })}
+          onClick={() => {
+            dispatch({ type: "DECREASE_ITEM", payload: { id: id } });
+          }}
         >
           <BsChevronDown
             id="cart-down"

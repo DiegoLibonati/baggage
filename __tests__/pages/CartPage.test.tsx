@@ -8,9 +8,9 @@ import phoneService from "@/services/phoneService";
 
 import { mockPhones } from "@tests/__mocks__/phones.mock";
 
-type RenderPage = {
+interface RenderPage {
   container: HTMLElement;
-};
+}
 
 const mockPhoneService = phoneService as jest.Mocked<typeof phoneService>;
 

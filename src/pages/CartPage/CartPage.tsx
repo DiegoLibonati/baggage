@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+import type { JSX } from "react";
+
 import CartContainer from "@/components/CartContainer/CartContainer";
 import Loading from "@/components/Loading/Loading";
 
@@ -9,7 +11,7 @@ import phoneService from "@/services/phoneService";
 
 import "@/pages/CartPage/CartPage.css";
 
-const CartPage = () => {
+const CartPage = (): JSX.Element => {
   const { state, dispatch } = useCartContext();
 
   const fetchCart = async (): Promise<void> => {
@@ -21,7 +23,7 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    fetchCart();
+    void fetchCart();
   }, []);
 
   useEffect(() => {

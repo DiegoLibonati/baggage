@@ -1,11 +1,12 @@
 import { useReducer } from "react";
 
-import { CartProviderProps } from "@/types/props";
+import type { JSX } from "react";
+import type { CartProviderProps } from "@/types/props";
 
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { CartReducer } from "@/contexts/CartContext/CartReducer";
 
-export const CartProvider = ({ children }: CartProviderProps) => {
+export const CartProvider = ({ children }: CartProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(CartReducer, {
     loading: false,
     cart: [],

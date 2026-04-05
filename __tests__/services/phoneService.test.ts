@@ -10,7 +10,7 @@ describe("phoneService", () => {
   it("should call fetch with the correct URL and method", async () => {
     (globalThis.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => [],
+      json: () => [],
     });
 
     await phoneService.getAll();
@@ -23,7 +23,7 @@ describe("phoneService", () => {
   it("should return the parsed phones on a successful response", async () => {
     (globalThis.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => mockPhones,
+      json: () => mockPhones,
     });
 
     const result = await phoneService.getAll();

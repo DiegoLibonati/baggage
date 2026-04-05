@@ -1,4 +1,4 @@
-export type GetTotalAndAmount = {
+export interface GetTotalAndAmount {
   total: number;
   amount: number;
-};
+}

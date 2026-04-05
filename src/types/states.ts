@@ -1,8 +1,8 @@
-import { Phone } from "@/types/app";
+import type { Phone } from "@/types/app";
 
-export type CartState = {
+export interface CartState {
   loading: boolean;
   cart: Phone[];
   total: number;
   amount: number;
-};
+}

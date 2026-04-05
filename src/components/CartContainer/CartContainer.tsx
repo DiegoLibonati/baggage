@@ -1,10 +1,12 @@
+import type { JSX } from "react";
+
 import CartItem from "@/components/CartItem/CartItem";
 
 import { useCartContext } from "@/hooks/useCartContext";
 
 import "@/components/CartContainer/CartContainer.css";
 
-const CartContainer = () => {
+const CartContainer = (): JSX.Element => {
   const { state, dispatch } = useCartContext();
 
   if (state.cart.length === 0) {
@@ -40,7 +42,9 @@ const CartContainer = () => {
           type="button"
           aria-label="Clear all items from cart"
           className="cart__clear-cart"
-          onClick={() => dispatch({ type: "CLEAR_CART" })}
+          onClick={() => {
+            dispatch({ type: "CLEAR_CART" });
+          }}
         >
           CLEAR CART
         </button>

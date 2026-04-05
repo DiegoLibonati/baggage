@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { useEffect } from "react";
 
+import type { JSX } from "react";
 import type { Phone } from "@/types/app";
 
 import Navbar from "@/components/Navbar/Navbar";
@@ -11,11 +12,11 @@ import { useCartContext } from "@/hooks/useCartContext";
 
 import { mockPhone, mockPhones } from "@tests/__mocks__/phones.mock";
 
-type RenderComponent = {
+interface RenderComponent {
   container: HTMLElement;
-};
+}
 
-const NavbarWithCart = ({ phones }: { phones: Phone[] }) => {
+const NavbarWithCart = ({ phones }: { phones: Phone[] }): JSX.Element => {
   const { dispatch } = useCartContext();
 
   useEffect(() => {

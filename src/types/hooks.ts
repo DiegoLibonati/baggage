@@ -1,3 +1,3 @@
-import { CartContext } from "@/types/contexts";
+import type { CartContext } from "@/types/contexts";
 
 export type UseCartContext = CartContext;
