@@ -49,12 +49,7 @@ export const CartReducer = (state: CartState, action: CartReducerT): CartState =
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (action.type === "SET_TOTALS_AND_AMOUNT") {
-    const { amount, total } = getTotalAndAmount(state.cart);
+  const { amount, total } = getTotalAndAmount(state.cart);
 
-    return { ...state, amount: amount, total: total };
-  }
-
-  throw new Error("Error match");
+  return { ...state, amount: amount, total: total };
 };
