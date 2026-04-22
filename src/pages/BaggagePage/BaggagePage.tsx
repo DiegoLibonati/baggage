@@ -9,9 +9,9 @@ import { useCartContext } from "@/hooks/useCartContext";
 
 import phoneService from "@/services/phoneService";
 
-import "@/pages/CartPage/CartPage.css";
+import "@/pages/BaggagePage/BaggagePage.css";
 
-const CartPage = (): JSX.Element => {
+const BaggagePage = (): JSX.Element => {
   const { state, dispatch } = useCartContext();
 
   const fetchCart = async (): Promise<void> => {
@@ -33,10 +33,10 @@ const CartPage = (): JSX.Element => {
   if (state.loading) return <Loading></Loading>;
 
   return (
-    <main className="cart-page main-app">
+    <main className="baggage-page main-app">
       <CartContainer></CartContainer>
     </main>
   );
 };
 
-export default CartPage;
+export default BaggagePage;

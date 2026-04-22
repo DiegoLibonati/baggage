@@ -1,7 +1,7 @@
 {
-  "name": "Cart React",
-  "short_name": "Cart",
-  "description": "I made a web application that simulates a shopping cart. Basically we will have different types of cell phones, each one of these cell phones will have a price as we add more, the total price will be added and also the amount of products in the cart will be added. If we touch `Clear cart` we will eliminate all the items in the cart. Use useReducer.",
+  "name": "Baggage",
+  "short_name": "Baggage",
+  "description": "Baggage is a single-page shopping cart application built with React 19 and TypeScript. It fetches a catalog of smartphones from an external API and displays them inside a dynamic cart where users can manage their selection in real time.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

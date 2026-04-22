@@ -1,35 +1,63 @@
+import type { Phone } from "@/types/app";
+
 import { getTotalAndAmount } from "@/helpers/getTotalAndAmount";
 
-import { mockPhone, mockPhones } from "@tests/__mocks__/phones.mock";
+const mockPhone: Phone = {
+  id: 1,
+  title: "Samsung Galaxy S8",
+  price: 399.99,
+  img: "https://example.com/phone-1.png",
+  amount: 1,
+};
+
+const mockPhones: Phone[] = [
+  { id: 1, title: "Samsung Galaxy S8", price: 399.99, img: "", amount: 1 },
+  { id: 2, title: "google pixel", price: 499.99, img: "", amount: 3 },
+];
 
 describe("getTotalAndAmount", () => {
-  it("should return total 0 and amount 0 for an empty array", () => {
-    expect(getTotalAndAmount([])).toEqual({ total: 0, amount: 0 });
+  describe("when the array has multiple items", () => {
+    it("should return the correct total multiplying price by amount for each item", () => {
+      const result = getTotalAndAmount(mockPhones);
+      expect(result.total).toBeCloseTo(1899.96);
+    });
+
+    it("should return the correct amount summing all item amounts", () => {
+      const result = getTotalAndAmount(mockPhones);
+      expect(result.amount).toBe(4);
+    });
   });
 
-  it("should calculate total and amount for a single item", () => {
-    const result = getTotalAndAmount([mockPhone]);
+  describe("when the array has a single item with amount 1", () => {
+    it("should return the item price as total", () => {
+      const result = getTotalAndAmount([mockPhone]);
+      expect(result.total).toBeCloseTo(399.99);
+    });
 
-    expect(result.total).toBe(mockPhone.price * mockPhone.amount);
-    expect(result.amount).toBe(mockPhone.amount);
+    it("should return 1 as amount", () => {
+      const result = getTotalAndAmount([mockPhone]);
+      expect(result.amount).toBe(1);
+    });
   });
 
-  it("should accumulate total and amount across multiple items", () => {
-    const result = getTotalAndAmount(mockPhones);
-
-    const expectedTotal = mockPhones.reduce((sum, p) => sum + p.price * p.amount, 0);
-    const expectedAmount = mockPhones.reduce((sum, p) => sum + p.amount, 0);
-
-    expect(result.total).toBeCloseTo(expectedTotal, 2);
-    expect(result.amount).toBe(expectedAmount);
+  describe("when an item has amount greater than 1", () => {
+    it("should multiply price by amount", () => {
+      const phone: Phone = { id: 1, title: "Test", price: 100, img: "", amount: 5 };
+      const result = getTotalAndAmount([phone]);
+      expect(result.total).toBeCloseTo(500);
+      expect(result.amount).toBe(5);
+    });
   });
 
-  it("should multiply price by amount for each item", () => {
-    const item = { ...mockPhone, price: 100, amount: 3 };
+  describe("when the array is empty", () => {
+    it("should return 0 as total", () => {
+      const result = getTotalAndAmount([]);
+      expect(result.total).toBe(0);
+    });
 
-    const result = getTotalAndAmount([item]);
-
-    expect(result.total).toBe(300);
-    expect(result.amount).toBe(3);
+    it("should return 0 as amount", () => {
+      const result = getTotalAndAmount([]);
+      expect(result.amount).toBe(0);
+    });
   });
 });

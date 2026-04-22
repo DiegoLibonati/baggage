@@ -2,7 +2,7 @@ import type { JSX } from "react";
 
 import Navbar from "@/components/Navbar/Navbar";
 
-import CartPage from "@/pages/CartPage/CartPage";
+import BaggagePage from "@/pages/BaggagePage/BaggagePage";
 
 import { CartProvider } from "@/contexts/CartContext/CartProvider";
 
@@ -12,7 +12,7 @@ function App(): JSX.Element {
   return (
     <CartProvider>
       <Navbar></Navbar>
-      <CartPage></CartPage>
+      <BaggagePage></BaggagePage>
     </CartProvider>
   );
 }

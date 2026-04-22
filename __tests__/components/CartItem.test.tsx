@@ -1,137 +1,117 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useEffect } from "react";
 
-import type { JSX } from "react";
-import type { Phone } from "@/types/app";
+import type { RenderResult } from "@testing-library/react";
+import type { CartContext as CartContextT } from "@/types/contexts";
+import type { CartState } from "@/types/states";
 
 import CartItem from "@/components/CartItem/CartItem";
 
-import { CartProvider } from "@/contexts/CartContext/CartProvider";
+import { CartContext } from "@/contexts/CartContext/CartContext";
 
-import { useCartContext } from "@/hooks/useCartContext";
+import { mockPhone, mockPhones } from "@tests/__mocks__/phones.mock";
 
-import { mockPhone } from "@tests/__mocks__/phones.mock";
+const mockDispatch = jest.fn();
 
-interface RenderComponent {
-  container: HTMLElement;
-}
-
-const CartItemWrapper = ({ phones, id }: { phones: Phone[]; id: number }): JSX.Element => {
-  const { dispatch } = useCartContext();
-
-  useEffect(() => {
-    dispatch({ type: "DISPLAY_ITEMS", payload: { cart: phones } });
-  }, []);
-
-  return <CartItem id={id} />;
+const defaultState: CartState = {
+  loading: false,
+  cart: mockPhones,
+  total: 0,
+  amount: 0,
 };
 
-const renderComponent = (overrides?: { phones?: Phone[]; id?: number }): RenderComponent => {
-  const phones = overrides?.phones ?? [mockPhone];
-  const id = overrides?.id ?? mockPhone.id;
-
-  const { container } = render(
-    <CartProvider>
-      <CartItemWrapper phones={phones} id={id} />
-    </CartProvider>
+const renderComponent = (
+  id: number = mockPhone.id,
+  state: CartState = defaultState
+): RenderResult => {
+  const contextValue: CartContextT = {
+    state,
+    dispatch: mockDispatch,
+  };
+  return render(
+    <CartContext.Provider value={contextValue}>
+      <CartItem id={id} />
+    </CartContext.Provider>
   );
-
-  return { container };
 };
 
 describe("CartItem", () => {
-  it("should render the item container", () => {
-    const { container } = renderComponent();
-
-    expect(container.querySelector<HTMLDivElement>("div.item")).toBeInTheDocument();
-  });
-
-  it("should render the product image with the correct alt text", async () => {
-    renderComponent();
-
-    const img = await screen.findByRole("img", { name: mockPhone.title });
-    expect(img).toHaveAttribute("src", mockPhone.img);
-  });
-
-  it("should display the product title", async () => {
-    renderComponent();
-
-    expect(
-      await screen.findByRole("heading", { level: 3, name: mockPhone.title })
-    ).toBeInTheDocument();
-  });
-
-  it("should display the product price", async () => {
-    renderComponent();
-
-    expect(await screen.findByText(`$${mockPhone.price}`)).toBeInTheDocument();
-  });
-
-  it("should display the item quantity", async () => {
-    renderComponent();
-
-    expect(await screen.findByLabelText(`Quantity: ${mockPhone.amount}`)).toBeInTheDocument();
-  });
-
-  it("should render the remove button with a descriptive aria-label", async () => {
-    renderComponent();
-
-    expect(
-      await screen.findByRole("button", { name: `Remove ${mockPhone.title} from cart` })
-    ).toBeInTheDocument();
-  });
-
-  it("should render the increase button with a descriptive aria-label", async () => {
-    renderComponent();
-
-    expect(
-      await screen.findByRole("button", { name: `Increase quantity of ${mockPhone.title}` })
-    ).toBeInTheDocument();
-  });
-
-  it("should render the decrease button with a descriptive aria-label", async () => {
-    renderComponent();
-
-    expect(
-      await screen.findByRole("button", { name: `Decrease quantity of ${mockPhone.title}` })
-    ).toBeInTheDocument();
-  });
-
-  it("should increase the quantity when the increase button is clicked", async () => {
-    const user = userEvent.setup();
-    renderComponent();
-
-    const increaseBtn = await screen.findByRole("button", {
-      name: `Increase quantity of ${mockPhone.title}`,
+  describe("rendering", () => {
+    it("should render the item title", () => {
+      renderComponent();
+      expect(screen.getByText(mockPhone.title)).toBeInTheDocument();
     });
-    await user.click(increaseBtn);
 
-    expect(screen.getByLabelText(`Quantity: ${mockPhone.amount + 1}`)).toBeInTheDocument();
+    it("should render the item price", () => {
+      renderComponent();
+      expect(screen.getByText(`$${mockPhone.price}`)).toBeInTheDocument();
+    });
+
+    it("should render the item image with the title as alt text", () => {
+      renderComponent();
+      expect(screen.getByRole("img", { name: mockPhone.title })).toBeInTheDocument();
+    });
+
+    it("should render the item amount with the correct aria-label", () => {
+      renderComponent();
+      expect(screen.getByLabelText(`Quantity: ${mockPhone.amount}`)).toBeInTheDocument();
+    });
+
+    it("should render the remove button", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("button", { name: `Remove ${mockPhone.title} from cart` })
+      ).toBeInTheDocument();
+    });
+
+    it("should render the increase quantity button", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("button", { name: `Increase quantity of ${mockPhone.title}` })
+      ).toBeInTheDocument();
+    });
+
+    it("should render the decrease quantity button", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("button", { name: `Decrease quantity of ${mockPhone.title}` })
+      ).toBeInTheDocument();
+    });
   });
 
-  it("should decrease the quantity when the decrease button is clicked", async () => {
-    const user = userEvent.setup();
-    const phoneWithAmount2 = { ...mockPhone, amount: 2 };
-    renderComponent({ phones: [phoneWithAmount2] });
-
-    const decreaseBtn = await screen.findByRole("button", {
-      name: `Decrease quantity of ${mockPhone.title}`,
+  describe("behavior", () => {
+    it("should dispatch CLEAR_ITEM when the remove button is clicked", async () => {
+      const user = userEvent.setup();
+      renderComponent();
+      await user.click(screen.getByRole("button", { name: `Remove ${mockPhone.title} from cart` }));
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: "CLEAR_ITEM",
+        payload: { id: mockPhone.id },
+      });
     });
-    await user.click(decreaseBtn);
 
-    expect(screen.getByLabelText("Quantity: 1")).toBeInTheDocument();
-  });
-
-  it("should remove the item title from the DOM when the remove button is clicked", async () => {
-    const user = userEvent.setup();
-    renderComponent();
-
-    const removeBtn = await screen.findByRole("button", {
-      name: `Remove ${mockPhone.title} from cart`,
+    it("should dispatch INCREASE_ITEM when the increase button is clicked", async () => {
+      const user = userEvent.setup();
+      renderComponent();
+      await user.click(
+        screen.getByRole("button", { name: `Increase quantity of ${mockPhone.title}` })
+      );
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: "INCREASE_ITEM",
+        payload: { id: mockPhone.id },
+      });
     });
-    await user.click(removeBtn);
 
-    expect(screen.queryByText(mockPhone.title)).not.toBeInTheDocument();
+    it("should dispatch DECREASE_ITEM when the decrease button is clicked", async () => {
+      const user = userEvent.setup();
+      renderComponent();
+      await user.click(
+        screen.getByRole("button", { name: `Decrease quantity of ${mockPhone.title}` })
+      );
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: "DECREASE_ITEM",
+        payload: { id: mockPhone.id },
+      });
+    });
   });
 });

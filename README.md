@@ -1,4 +1,4 @@
-# Cart React
+# Baggage
 
 ## Educational Purpose
 
@@ -17,7 +17,19 @@ The application will open automatically at `http://localhost:3000`
 
 ## Description
 
-I made a web application that simulates a shopping cart. Basically we will have different types of cell phones, each one of these cell phones will have a price as we add more, the total price will be added and also the amount of products in the cart will be added. If we touch `Clear cart` we will eliminate all the items in the cart. Use useReducer.
+**Baggage** is a single-page shopping cart application built with React 19 and TypeScript. It fetches a catalog of smartphones from an external API and displays them inside a dynamic cart where users can manage their selection in real time.
+
+Each item in the cart shows its image, name, and price, along with controls to increase or decrease its quantity. Decreasing an item's quantity to zero removes it from the cart automatically. Users can also remove any individual item directly with the dedicated remove button, or wipe the entire cart at once using the **Clear Cart** action.
+
+The cart header always reflects the current state: the navbar badge updates instantly to show the total number of items across all products, and the cart footer keeps a running total price that recalculates on every change.
+
+State is managed globally using the **Context API combined with `useReducer`**, with a single reducer handling seven distinct actions — loading, displaying items, clearing the cart, clearing a single item, increasing and decreasing quantities, and recalculating totals. This makes every state transition explicit, predictable, and easy to trace.
+
+Data is loaded asynchronously on startup from a course API, proxied through Vite's dev server to avoid CORS issues. While the data is being fetched, a loading screen is shown and the cart is blocked from rendering until the response arrives.
+
+The project follows a strict type system where every action, state shape, context value, component prop, hook return, and helper signature is fully typed in dedicated files under `src/types/`. Path aliases (`@/` and `@tests/`) keep imports clean across the entire codebase.
+
+It also ships with a complete test suite using **Jest**, **ts-jest**, **jest-environment-jsdom**, and **Testing Library** — covering components, pages, services, helpers, and context interactions, with a 70% coverage threshold enforced on branches, functions, lines, and statements. Pre-commit hooks via Husky and lint-staged run ESLint and Prettier automatically before every commit.
 
 ## Technologies used
 
@@ -68,11 +80,7 @@ I made a web application that simulates a shopping cart. Basically we will have 
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Cart-React`](https://www.diegolibonati.com.ar/#/project/Cart-React)
-
-## Video
-
-https://user-images.githubusercontent.com/99032604/199618079-8e5e1e41-e011-4957-95ea-e503d9fe90f1.mp4
+[`https://www.diegolibonati.com.ar/#/project/baggage`](https://www.diegolibonati.com.ar/#/project/baggage)
 
 ## Testing
 
