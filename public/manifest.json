@@ -1,7 +1,7 @@
 {
   "name": "Baggage",
   "short_name": "Baggage",
-  "description": "Baggage is a single-page shopping cart application built with React 19 and TypeScript. It fetches a catalog of smartphones from an external API and displays them inside a dynamic cart where users can manage their selection in real time.",
+  "description": "Baggage is a single-page shopping cart application built with React 19 and TypeScript.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
