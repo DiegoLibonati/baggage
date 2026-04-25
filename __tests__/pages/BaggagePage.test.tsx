@@ -12,7 +12,7 @@ import { mockPhones } from "@tests/__mocks__/phones.mock";
 const mockFetchSuccess = (data: unknown): void => {
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,
-    json: () => data,
+    json: async () => await data,
   } as Response);
 };
 
