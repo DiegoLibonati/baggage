@@ -6,15 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
-
-The application will open automatically at `http://localhost:3000`
-
 ## Description
 
 **Baggage** is a single-page shopping cart application built with React 19 and TypeScript. It fetches a catalog of smartphones from an external API and displays them inside a dynamic cart where users can manage their selection in real time.
@@ -79,11 +70,21 @@ It also ships with a complete test suite using **Jest**, **ts-jest**, **jest-env
 "vite": "^7.1.6"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/baggage`](https://www.diegolibonati.com.ar/#/project/baggage)
+With the stack above in place, you can spin up the app locally in a few steps:
+
+1. Clone the repository
+2. Navigate to the project folder
+3. Copy `.env.example` to `.env` so the dev server knows which API to proxy
+4. Execute: `npm install`
+5. Execute: `npm run dev`
+
+The application will open automatically at `http://localhost:3000`.
 
 ## Testing
+
+Once the app runs locally, you can validate it against the full Jest + Testing Library suite living under `__tests__/`.
 
 1. Navigate to the project folder
 2. Execute: `npm test`
@@ -94,7 +95,9 @@ For coverage report:
 npm run test:coverage
 ```
 
-## Security
+## Security Audit
+
+Beyond functional tests, the project includes a couple of audit utilities to catch dependency vulnerabilities and architectural smells before shipping.
 
 ### npm audit
 
@@ -121,3 +124,7 @@ npm run doctor -- --verbose
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/baggage`](https://www.diegolibonati.com.ar/#/project/baggage)
