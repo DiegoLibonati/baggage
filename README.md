@@ -20,7 +20,7 @@ Data is loaded asynchronously on startup from a course API, proxied through Vite
 
 The project follows a strict type system where every action, state shape, context value, component prop, hook return, and helper signature is fully typed in dedicated files under `src/types/`. Path aliases (`@/` and `@tests/`) keep imports clean across the entire codebase.
 
-It also ships with a complete test suite using **Jest**, **ts-jest**, **jest-environment-jsdom**, and **Testing Library** — covering components, pages, services, helpers, and context interactions, with a 70% coverage threshold enforced on branches, functions, lines, and statements. Pre-commit hooks via Husky and lint-staged run ESLint and Prettier automatically before every commit.
+It also ships with a complete test suite using **Jest**, **ts-jest**, **jest-environment-jsdom**, **Testing Library**, and **MSW** (Mock Service Worker) for HTTP interception — covering components, pages, services, helpers, and context interactions, with a 70% coverage threshold enforced on branches, functions, lines, and statements. Pre-commit hooks via Husky and lint-staged run ESLint and Prettier automatically before every commit.
 
 ## Technologies used
 
@@ -63,10 +63,12 @@ It also ships with a complete test suite using **Jest**, **ts-jest**, **jest-env
 "jest": "^30.3.0"
 "jest-environment-jsdom": "^30.3.0"
 "lint-staged": "^15.0.0"
+"msw": "2.10.4"
 "prettier": "^3.0.0"
 "ts-jest": "^29.4.6"
 "typescript": "^5.2.2"
 "typescript-eslint": "^8.0.0"
+"undici": "^7.25.0"
 "vite": "^7.1.6"
 ```
 
@@ -93,6 +95,51 @@ For coverage report:
 
 ```bash
 npm run test:coverage
+```
+
+## Continuous Integration
+
+The repository ships with a **GitHub Actions** pipeline defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It runs automatically on every `push` and `pull_request` targeting the `main` branch, validating the project across three sequential jobs.
+
+### Pipeline overview
+
+```
+                      ┌─── PR or push to main ───┐
+                      ▼                          ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│   lint-and-audit     │─▶│      testing     │─▶│       build      │
+│ eslint · type-check  │  │  jest (jsdom)    │  │   vite build     │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+All jobs run on `ubuntu-latest`, install Node from [`.nvmrc`](.nvmrc) (Node 22), restore the npm cache, and bootstrap dependencies with `npm ci` before executing their step.
+
+### Validation jobs (run on every PR and push)
+
+1. **`lint-and-audit`** — runs `npm run lint` (ESLint over `src/`) and `npm run type-check` (`tsc -p tsconfig.app.json --noEmit`) to enforce code style and TypeScript correctness.
+2. **`testing`** — runs the full Jest suite via `npm run test` under `jest-environment-jsdom`, with MSW intercepting HTTP requests so no network calls leak out of the runner.
+3. **`build`** — runs `npm run build` (`tsc -p tsconfig.app.json && vite build`) to confirm the project produces a production bundle without type or build errors.
+
+### Where the build outputs live
+
+| Output                                           | Location                                  |
+| ------------------------------------------------ | ----------------------------------------- |
+| Validation logs (lint, type-check, tests, build) | **Actions** tab on GitHub                 |
+| Production bundle (`dist/`)                      | Ephemeral, inside the runner              |
+| Coverage report (locally)                        | `coverage/` after `npm run test:coverage` |
+
+### Running the same checks locally
+
+```bash
+# lint-and-audit
+npm run lint
+npm run type-check
+
+# testing
+npm run test
+
+# build
+npm run build
 ```
 
 ## Security Audit
